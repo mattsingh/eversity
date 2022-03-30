@@ -1,5 +1,17 @@
 const express = require('express');
 const path = require('path');
+const { Client } = require('pg');
+require('dotenv').config();
+
+const db = new Client({
+	connectionString: process.env.DATABASE_URL,
+	ssl: {
+		rejectUnauthorized: false,
+	},
+});
+
+db.connect();
+console.log('Connected to Heroku Postgres Database');
 
 const app = express();
 const port = process.env.PORT || 8080;

@@ -45,7 +45,7 @@ exports.setApp = function (app, db) {
 		// Create user
 		let result = await db.query(
 			'INSERT INTO users (name, email, password, university_id) VALUES ($1, $2, $3, $4)',
-			[firstName + lastName, email, password, universityId]
+			[firstName + ' ' + lastName, email, password, universityId]
 		);
 		res.status(200).json({ message: 'User created' });
 	});

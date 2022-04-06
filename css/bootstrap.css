@@ -2023,6 +2023,14 @@ progress {
     align-items: center;
 }
 
+.form-groupReg {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 0.8rem;
+    text-align: center;
+    align-items: center;
+}
+
 .form-control {
     text-align: center;
     align-items: center;

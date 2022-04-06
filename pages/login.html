@@ -29,17 +29,19 @@
     </div>
 
     <div class="card bg-primary" style="width: 35%; height: 300px;">
-        <div class="form-group">
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
-        </div>
-        <br>
-        <div class="form-group">
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
+        <form class="form-group" id="login-info">
+            <input class="form-control" placeholder="Email" name="email" required>
+
+            <br><br><br><br>
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
+            <br><br><br><br>
+            <button type="submit" value="Login" id="login-form-submit" class="submitbutton bg-primary" style="width: 200px; height: 40px;">Login</button>
+
+        </form>
 
     </div>
 
-    <button class="submitbutton bg-primary" style="width: 200px; height: 40px;">Login</button>
+
 
 </body>
 

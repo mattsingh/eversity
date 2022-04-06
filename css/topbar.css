@@ -15,10 +15,10 @@
 
 .dashboard,
 .home {
-    position: relative;
-    align-items: center;
+    position: absolute;
+    text-align: center;
     color: white;
-    margin-left: 10px;
+    left: 7%;
 }
 
 .login {

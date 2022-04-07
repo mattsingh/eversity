@@ -40,6 +40,12 @@ exports.setApp = function (app, db) {
 			'select id from universities where domain like $1',
 			[domain]
 		);
+
+		// Check if university exists
+		if (uniResult.rows.length === 0) {
+			return res.status(400).json({ message: 'Invalid email' });
+		}
+
 		const universityId = uniResult.rows[0].id;
 
 		// Create user

@@ -30,19 +30,18 @@
 
     <div class="card bg-primary" style="width: 35%; height: 300px;">
         <form class="form-group" id="login-info">
-            <input class="form-control" placeholder="Email" name="email" required>
+            <input id="email" class="form-control" placeholder="Email" name="email" required>
 
             <br><br><br><br>
-            <input type="password" class="form-control" placeholder="Password" name="password" required>
+            <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
             <br><br><br><br>
-            <button type="submit" value="Login" id="login-form-submit" class="submitbutton bg-primary" style="width: 200px; height: 40px;">Login</button>
+            <button type="button" value="Login" onclick="login()" id="login-form-submit" class="submitbutton bg-primary" style="width: 200px; height: 40px;">Login</button>
 
         </form>
 
     </div>
-
-
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/login.js"></script>
 </body>
 
 </html>

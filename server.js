@@ -37,6 +37,10 @@ app.get('/register', function (req, res) {
 	res.sendFile(path.join(__dirname, 'frontend/pages/register.html'));
 });
 
+app.get('/dashboard', function (req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/pages/dashboard.html'));
+});
+
 app.use(bodyParser.json());
 api.setApp(app, db);
 

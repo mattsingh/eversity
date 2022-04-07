@@ -14,9 +14,12 @@
 }
 
 .dashboard,
-.home {
-    position: absolute;
-    text-align: center;
+.home,
+.events,
+.rsos,
+.admindashboard,
+.createuniversity {
+    position: relative;
     color: white;
     left: 7%;
 }
@@ -27,7 +30,8 @@
     right: 20%;
 }
 
-.register {
+.register,
+.logout {
     position: absolute;
     text-align: center;
     color: white;

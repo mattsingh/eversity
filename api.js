@@ -162,4 +162,34 @@ exports.setApp = function (app, db) {
 
 		res.status(200).json({ message: 'Event created' });
 	});
+
+	// Get events
+	app.get('/event/get', authenticateToken, async (req, res) => {
+		const type = req.query.type;
+		const id = req.query.id;
+
+		// TODO: Only show events user has access to
+		// (i.e. show private events if user is in a university or show RSO events if user is in an RSO)
+
+		// Return event with id
+		if (id) {
+			const event = await db.query('SELECT * FROM events WHERE id = $1', [id]);
+			if (event.rows.length === 0) {
+				return res.status(400).json({ message: 'Event does not exist' });
+			}
+			return res.status(200).json(event.rows[0]);
+		}
+		
+		// Return events of type
+		if (type || type === 0) {
+			const events = await db.query('select * from events where type = $1', [type]);
+			return res.status(200).json(events.rows);
+		}
+
+		// Return all events
+		let result = await db.query(
+			'SELECT * FROM events ORDER BY date DESC'
+		);
+		res.status(200).json(result.rows);
+	});
 };

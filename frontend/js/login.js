@@ -10,6 +10,9 @@ const login = function () {
 		.then(function (res) {
 			console.log(res);
 			if (res.status === 200) {
+				// Store token in local storage
+				localStorage.setItem('token', res.data.token);
+				// Redirect to dashboard
 				window.location.href = origin + '/dashboard';
 			}
 		})

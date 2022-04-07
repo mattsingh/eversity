@@ -95,4 +95,71 @@ exports.setApp = function (app, db) {
 
 		res.status(200).json({ token });
 	});
+
+	// Create event
+	app.post('/event/create', authenticateToken, async (req, res) => {
+		const {
+			name,
+			date,
+			contactPhone,
+			contactEmail,
+			rsoId,
+			location,
+			description,
+			type,
+		} = req.body;
+
+		// Check if all fields are filled
+		if (
+			!name ||
+			!date ||
+			!contactPhone ||
+			!contactEmail ||
+			!location ||
+			!description ||
+			!(type >= 0 && type <= 2)
+		) {
+			return res
+				.status(400)
+				.json({ message: 'All fields are required (except RSO ID)' });
+		}
+
+		// Check if user is an admin
+		if (req.user.auth_level < 1) {
+			return res.status(403).json({
+				message: 'You do not have permission to create events',
+			});
+		}
+
+		// Check if RSO exists
+		if (type === 2) {
+			const rso = await db.query('SELECT * FROM rso WHERE id = $1', [
+				rsoId,
+			]);
+			if (rso.rows.length === 0) {
+				return res.status(400).json({ message: 'RSO does not exist' });
+			}
+		}
+
+		// Create event
+		let result = await db.query(
+			'INSERT INTO events (name, date, contact_phone, contact_email, rso_id, location, description, type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+			[
+				name,
+				date,
+				contactPhone,
+				contactEmail,
+				rsoId ? rsoId : null,
+				'(' + location.lat + ', ' + location.lng + ')',
+				description,
+				type,
+			]
+		);
+		
+		if (result.rowCount === 0) {
+			return res.status(400).json({ message: 'Event could not be created' });
+		}
+
+		res.status(200).json({ message: 'Event created' });
+	});
 };

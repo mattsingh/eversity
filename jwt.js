@@ -18,9 +18,7 @@ exports.authenticateToken = function (req, res, next) {
 	if (token == null) return res.sendStatus(401);
 
 	jwt.verify(token, process.env.TOKEN_SECRET, (err, user) => {
-		console.log(err);
-
-		if (err) return res.sendStatus(403);
+		if (err) return res.status(403).json({ message: 'Forbidden; Invalid JWT' });
 
 		req.user = user;
 

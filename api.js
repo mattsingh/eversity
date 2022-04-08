@@ -192,4 +192,24 @@ exports.setApp = function (app, db) {
 		);
 		res.status(200).json(result.rows);
 	});
+
+	// Get RSOs	
+	app.get('/rso/get', authenticateToken, async (req, res) => {
+		const id = req.query.id;
+
+		// Return RSO from university with id
+		if (id) {
+			const rso = await db.query('SELECT * FROM RSO WHERE id = $1 AND university_id = $1', [id, req.user.university_id]);
+			if (rso.rows.length === 0) {
+				return res.status(400).json({ message: 'RSO does not exist' });
+			}
+			return res.status(200).json(rso.rows[0]);
+		}
+
+		// Return all RSOs
+		let result = await db.query(
+			'SELECT * FROM rsos where university_id = $1', [req.user.university_id]
+		);
+		res.status(200).json(result.rows);
+	});
 };

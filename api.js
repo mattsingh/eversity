@@ -155,9 +155,11 @@ exports.setApp = function (app, db) {
 				type,
 			]
 		);
-		
+
 		if (result.rowCount === 0) {
-			return res.status(400).json({ message: 'Event could not be created' });
+			return res
+				.status(400)
+				.json({ message: 'Event could not be created' });
 		}
 
 		res.status(200).json({ message: 'Event created' });
@@ -173,23 +175,28 @@ exports.setApp = function (app, db) {
 
 		// Return event with id
 		if (id) {
-			const event = await db.query('SELECT * FROM events WHERE id = $1', [id]);
+			const event = await db.query('SELECT * FROM events WHERE id = $1', [
+				id,
+			]);
 			if (event.rows.length === 0) {
-				return res.status(400).json({ message: 'Event does not exist' });
+				return res
+					.status(400)
+					.json({ message: 'Event does not exist' });
 			}
 			return res.status(200).json(event.rows[0]);
 		}
-		
+
 		// Return events of type
 		if (type || type === 0) {
-			const events = await db.query('select * from events where type = $1', [type]);
+			const events = await db.query(
+				'select * from events where type = $1',
+				[type]
+			);
 			return res.status(200).json(events.rows);
 		}
 
 		// Return all events
-		let result = await db.query(
-			'SELECT * FROM events ORDER BY date DESC'
-		);
+		let result = await db.query('SELECT * FROM events ORDER BY date DESC');
 		res.status(200).json(result.rows);
 	});
 
@@ -210,20 +217,28 @@ exports.setApp = function (app, db) {
 		}
 
 		// Create RSO
-		let result = await db.query('INSERT INTO rsos (name, description, university_id, admin_id) VALUES ($1, $2, $3, $4)', [ name, description, req.user.university_id, req.user.user_id ]);
+		let result = await db.query(
+			'INSERT INTO rsos (name, description, university_id, admin_id) VALUES ($1, $2, $3, $4)',
+			[name, description, req.user.university_id, req.user.user_id]
+		);
 		if (result.rowCount === 0) {
-			return res.status(400).json({ message: 'RSO could not be created' });
+			return res
+				.status(400)
+				.json({ message: 'RSO could not be created' });
 		}
 		res.status(200).json({ message: 'RSO created' });
 	});
 
-	// Get RSOs	
+	// Get RSOs
 	app.get('/rso/get', authenticateToken, async (req, res) => {
 		const id = req.query.id;
 
 		// Return RSO from university with id
 		if (id) {
-			const rso = await db.query('SELECT * FROM RSO WHERE id = $1 AND university_id = $1', [id, req.user.university_id]);
+			const rso = await db.query(
+				'SELECT * FROM RSO WHERE id = $1 AND university_id = $1',
+				[id, req.user.university_id]
+			);
 			if (rso.rows.length === 0) {
 				return res.status(400).json({ message: 'RSO does not exist' });
 			}
@@ -232,7 +247,8 @@ exports.setApp = function (app, db) {
 
 		// Return all RSOs
 		let result = await db.query(
-			'SELECT * FROM rsos where university_id = $1', [req.user.university_id]
+			'SELECT * FROM rsos where university_id = $1',
+			[req.user.university_id]
 		);
 		res.status(200).json(result.rows);
 	});

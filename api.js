@@ -193,6 +193,30 @@ exports.setApp = function (app, db) {
 		res.status(200).json(result.rows);
 	});
 
+	// Create RSO
+	app.post('/rso/create', authenticateToken, async (req, res) => {
+		const { name, description } = req.body;
+
+		// Check if all fields are filled
+		if (!name || !description) {
+			return res.status(400).json({ message: 'All fields are required' });
+		}
+
+		// Check if user is an admin
+		if (req.user.auth_level < 1) {
+			return res.status(403).json({
+				message: 'You do not have permission to create RSOs',
+			});
+		}
+
+		// Create RSO
+		let result = await db.query('INSERT INTO rsos (name, description, university_id, admin_id) VALUES ($1, $2, $3, $4)', [ name, description, req.user.university_id, req.user.user_id ]);
+		if (result.rowCount === 0) {
+			return res.status(400).json({ message: 'RSO could not be created' });
+		}
+		res.status(200).json({ message: 'RSO created' });
+	});
+
 	// Get RSOs	
 	app.get('/rso/get', authenticateToken, async (req, res) => {
 		const id = req.query.id;

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/topbar.css" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <title>Eversity</title>
 </head>
@@ -27,22 +28,24 @@
     </nav>
 
     <div class="recentEvents center">
-        <h1>Recent Events</h1>
-        <div class="card">
-            <div class="card recentEventCell bg-secondary">
-                <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" /> Description
-                <p class="eventCellParagraph">TextTextTextTextText</p>
-            </div>
+        <h1>Upcoming Events</h1>
+        <div id="upcomingEventsContainer" class="card">
+            <!-- <div class="card eventCell bg-secondary">
+                <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
+                <h3 class="card-title">Title</h6>
+                <p class="eventCellParagraph">Description Text</p>
+            </div> -->
         </div>
     </div>
     <br><br>
     <div class="registeredEvents center">
-        <h1>Registered Events</h1>
-        <div class="card">
-            <div class="card registeredEventCell bg-secondary">
-                <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" /> Description
-                <p class="eventCellParagraph">TextTextTextTextText</p>
-            </div>
+        <h1>Recent Events</h1>
+        <div id="recentEventsContainer" class="card">
+            <!-- <div class="card eventCell bg-secondary">
+                <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
+                <h3 class="card-title">Title</h6>
+                <p class="eventCellParagraph">Description Text</p>
+            </div> -->
         </div>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

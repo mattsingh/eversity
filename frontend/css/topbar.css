@@ -6,7 +6,8 @@
 }
 
 .topnav a {
-    float: left;
+    display: inline-block;
+    z-index: 1;
     text-align: center;
     padding: 17px 16px;
     text-decoration: none;

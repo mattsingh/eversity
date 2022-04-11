@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/topbar.css" />
-    <link rel="stylesheet" href="../css/dashboard.css" />
+    <link rel="stylesheet" href="../css/events.css" />
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <title>Eversity</title>
 </head>
@@ -20,36 +20,28 @@
 					-->
                     <a class="dashboard text-secondary" href="dashboard">Dashboard</a>
                     <a class="events text-secondary" href="events">Events</a>
-                    <a class="rsos text-secondary" href="dashboard">RSOs</a>
+                    <a class="rsos text-secondary" href="events">RSOs</a>
                     <a type="button" value="Logout" onclick="logout()" class="logout text-secondary">Logout</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="recentEvents center">
-        <h1>Upcoming Events</h1>
+    <div class="Events center">
+        <h2 class="date">Date</h2>
+        <button class="createEvent">Create Event</button>
         <div id="upcomingEventsContainer" class="card">
-            <!-- <div class="card eventCell bg-secondary">
-                <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
-                <h3 class="card-title">Title</h6>
-                <p class="eventCellParagraph">Description Text</p>
-            </div> -->
-        </div>
-    </div>
-    <br><br>
-    <div class="registeredEvents center">
-        <h1>Recent Events</h1>
-        <div id="recentEventsContainer" class="card">
-            <!-- <div class="card eventCell bg-secondary">
-                <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
-                <h3 class="card-title">Title</h6>
-                <p class="eventCellParagraph">Description Text</p>
-            </div> -->
+            <a class="card eventCell bg-secondary">
+                <div class="textContainer">
+                    <h1 class="title">Title</h1>
+                    <h5 class="time">Time</h5>
+                    <h5 class="location">Location</h5>
+                    <p class="eventCellParagraph">Description Text</p>
+                </div>
+            </a>
         </div>
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="../js/dashboard.js"></script>
     <script src="../js/isLoggedIn.js"></script>
 </body>
 

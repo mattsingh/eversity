@@ -1,0 +1,58 @@
+.Events {
+    margin-top: 25px;
+}
+
+.Events .date {
+    margin-left: 100px;
+}
+
+.createEvent {
+    position: absolute;
+    background-color: #89DD00;
+    color: white;
+    border: none;
+    text-align: center;
+    border-radius: 20px;
+    margin-left: 49%;
+    margin-top: -50px;
+    box-shadow: 0px 2px 2px 2px #4b523f60;
+}
+
+.createEvent:hover {
+    box-shadow: 0px 2px 2px 2px #4b523f00;
+    transition: 0.2s;
+}
+
+.eventCell:hover {
+    box-shadow: 0px 2px 2px 2px #4b523f60;
+    transition: 0.2s;
+}
+
+.Events .card {
+    width: 95%;
+    height: 300px;
+    background-color: #DFBB90;
+    display: table;
+}
+
+.Events .card .card {
+    position: relative;
+    margin: 2.5%;
+    width: 95%;
+    height: 260px;
+    opacity: 100%;
+    color: black;
+    text-decoration: none;
+}
+
+.eventCellParagraph {
+    width: 97%;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.textContainer {
+    margin-left: 50px;
+}

@@ -49,6 +49,10 @@ app.get('/rsos', function(req, res) {
     res.sendFile(path.join(__dirname, 'frontend/pages/rsos.html'));
 });
 
+app.get('/createRSO', function(req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/pages/createRSO.html'));
+});
+
 app.use(bodyParser.json());
 api.setApp(app, db);
 

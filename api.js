@@ -252,4 +252,33 @@ exports.setApp = function (app, db) {
 		);
 		res.status(200).json(result.rows);
 	});
+
+	// Post comment
+	app.post('/comments/create', authenticateToken, async (req, res) => {
+		const { eventId, text, rating } = req.body;
+
+		// Check if all fields are filled
+		if (!eventId || !text || !rating) {
+			return res.status(400).json({ message: 'All fields are required' });
+		}
+
+		// Check if rating is between 1 and 5
+		if (rating < 1 || rating > 5) {
+			return res
+				.status(400)
+				.json({ message: 'Rating must be between 1 and 5' });
+		}
+
+		// Create comment
+		let result = await db.query(
+			'INSERT INTO comments (event_id, user_id, text, rating) VALUES ($1, $2, $3, $4)',
+			[eventId, req.user.user_id, text, rating]
+		);
+		if (result.rowCount === 0) {
+			return res
+				.status(400)
+				.json({ message: 'Comment could not be created' });
+		}
+		res.status(200).json({ message: 'Comment created' });
+	});
 };

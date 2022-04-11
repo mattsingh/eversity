@@ -281,4 +281,31 @@ exports.setApp = function (app, db) {
 		}
 		res.status(200).json({ message: 'Comment created' });
 	});
+
+	// Get comments
+	app.get('/comments/get', authenticateToken, async (req, res) => {
+		const eventId = req.query.eventId;
+
+		// Return comments for event with id
+		if (eventId) {
+			const comments = await db.query(
+				'SELECT * FROM comments WHERE event_id = $1',
+				[eventId]
+			);
+			if (comments.rows.length === 0) {
+				return res.status(400).json({ message: 'No comments' });
+			}
+			
+			// Get rating average
+			let avg_result = await db.query(
+				'SELECT AVG(rating) FROM comments where event_id = $1',
+				[eventId]
+			);
+
+			res.status(200).json({
+				average: avg_result.rows[0].avg,
+				comments: comments.rows,
+			});
+		}
+	});
 };

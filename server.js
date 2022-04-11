@@ -45,6 +45,10 @@ app.get('/events', function(req, res) {
     res.sendFile(path.join(__dirname, 'frontend/pages/events.html'));
 });
 
+app.get('/rsos', function(req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/pages/rsos.html'));
+});
+
 app.use(bodyParser.json());
 api.setApp(app, db);
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/topbar.css" />
+	<link rel="stylesheet" href="../css/event.css" />
+	<!-- Font for rating stars -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>Eversity</title>
+</head>
+
+<body class="bg-secondary">
+    <nav class="topnav bg-primary">
+        <div>
+            <div>
+                <div>
+                    <!--a class="dashboard nav-link active text-secondary" aria-current="page" href="#">Dashboard</a
+					-->
+                    <a class="dashboard text-secondary" href="dashboard">Dashboard</a>
+                    <a class="events text-secondary" href="dashboard">Events</a>
+                    <a class="rsos text-secondary" href="dashboard">RSOs</a>
+                    <a type="button" value="Logout" onclick="logout()" class="logout text-secondary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+	<div class="row event-info-container p-4">
+		<div class="col-6 event-info bg-white p-5">
+			<h1 class="event-title">Event title</h1>
+			<h5 class="event-date">Event date</h5>
+			<h5 class="event-location">Location</h5>
+			<p class="event-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi eu
+		</div>
+		<img src="https://thumbs.dreamstime.com/b/reflecting-pond-fountain-front-millican-hall-ucf-orlando-florida-february-university-central-s-administrative-91858417.jpg" alt="Event image" class="col-6 event-image">
+	</div>
+	<div class="row">
+		<div class="col-6 comment-container">
+			<div class="comment-header">
+				<h3 class="m-5" >Comments</h3>
+			</div>
+			<div class="card comment bg-primary overflow-auto">
+				<div class="card-body">
+					<h6 class="card-title">Name - Time Ago</h5>
+					<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-6 post-comment-container">
+			<form class="post-comment-form">
+				<div class="form-group">
+					<label class="col" for="comment">Review</label>
+					<textarea class="form-control" id="comment-text" rows="3"></textarea>
+					<div class="stars col">
+						<form action="">
+						  <input class="star star-5" id="star-5" type="radio" name="star"/>
+						  <label class="star star-5" for="star-5"></label>
+						  <input class="star star-4" id="star-4" type="radio" name="star"/>
+						  <label class="star star-4" for="star-4"></label>
+						  <input class="star star-3" id="star-3" type="radio" name="star"/>
+						  <label class="star star-3" for="star-3"></label>
+						  <input class="star star-2" id="star-2" type="radio" name="star"/>
+						  <label class="star star-2" for="star-2"></label>
+						  <input class="star star-1" id="star-1" type="radio" name="star"/>
+						  <label class="star star-1" for="star-1"></label>
+						</form>
+					  </div>
+				</div>
+				<button id="comment-submit-btn" type="submit" class="btn btn-primary m-auto">Submit</button>
+			</form>
+		</div>
+	</div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<!-- TODO: Remove dashboard.js when exporting logout function -->
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/isLoggedIn.js"></script>
+</body>
+
+</html>

@@ -290,7 +290,7 @@ exports.setApp = function (app, db) {
 		// Return comments for event with id
 		if (eventId) {
 			const comments = await db.query(
-				'SELECT * FROM comments WHERE event_id = $1',
+				'SELECT comments.id, comments.text, comments.rating, comments.created_at,users.name FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.event_id = $1', 
 				[eventId]
 			);
 			if (comments.rows.length === 0) {

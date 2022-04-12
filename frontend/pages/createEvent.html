@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/topbar.css" />
+    <link rel="stylesheet" href="../css/createEvent.css" />
+    <link rel="stylesheet" href="../css/bootstrap.css" />
+    <title>Eversity</title>
+</head>
+
+<body class="bg-secondary">
+    <nav class="topnav bg-primary">
+        <div>
+            <div>
+                <div>
+                    <!--a class="dashboard nav-link active text-secondary" aria-current="page" href="#">Dashboard</a
+					-->
+                    <a class="dashboard text-secondary" href="dashboard">Dashboard</a>
+                    <a class="events text-secondary" href="events">Events</a>
+                    <a class="rsos text-secondary" href="rsos">RSOs</a>
+                    <a type="button" value="Logout" onclick="logout()" class="logout text-secondary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <form class="Event center">
+        <h2 class="pageTitle">Create Your Event</h2>
+        <div class="card eventContainer">
+            <div class="eventNameCell">
+                <div class="textContainer">
+                    <h2 class="title">Event Name</h2>
+                    <input class="eventName" id="eventName" placeholder="Event Name" required>
+                </div>
+            </div>
+            <div class="eventTimeCell">
+                <div class="textContainer">
+                    <h2 class="title">Time</h2>
+                    <input type="time" class="eventTime" id="eventTime" placeholder="Event Time" required>
+                </div>
+            </div>
+            <div class="eventLocationCell">
+                <div class="textContainer">
+                    <h2 class="title">Location</h2>
+                    <input type="url" class="eventLocation" id="eventLocation" placeholder="Event Location" required>
+                </div>
+            </div>
+            <div class="eventDescriptionCell">
+                <div class="eventContainer">
+                    <h2 class="title">Description</h2>
+                    <textarea class="eventDescription" id="eventDescription" placeholder="event Description" required> </textarea>
+                </div>
+            </div>
+        </div>
+        <button class="submitEvent">Submit</button>
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../js/createEvent.js"></script>
+    <script src="../js/isLoggedIn.js"></script>
+</body>
+
+</html>

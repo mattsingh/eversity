@@ -61,6 +61,10 @@ app.get('/viewRSO', function(req, res) {
     res.sendFile(path.join(__dirname, 'frontend/pages/viewRSO.html'));
 });
 
+app.get('/createEvent', function(req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/pages/createEvent.html'));
+});
+
 app.use(bodyParser.json());
 api.setApp(app, db);
 

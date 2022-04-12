@@ -319,7 +319,15 @@ exports.setApp = function (app, db) {
 			return res.status(400).json({ message: 'All fields are required' });
 		}
 
-		const result = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat},${lon}&key=${process.env.GEOCODING_API_KEY}`);
-		res.status(200).json(result.data.results[0].formatted);
+		const result = await getLocationString(lat, lon);
+		console.log(result);
+		res.status(200).json(result);
 	});
 };
+
+
+// Get location string
+async function getLocationString(lat, lon) {
+	const result = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat},${lon}&key=${process.env.GEOCODING_API_KEY}`);
+	return result.data.results[0].formatted;
+}

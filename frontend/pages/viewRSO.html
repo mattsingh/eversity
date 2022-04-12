@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/topbar.css" />
-    <link rel="stylesheet" href="../css/rsos.css" />
+    <link rel="stylesheet" href="../css/viewRSO.css" />
     <link rel="stylesheet" href="../css/bootstrap.css" />
     <title>Eversity</title>
 </head>
@@ -27,20 +27,12 @@
         </div>
     </nav>
 
-    <div class="RSOs center">
-        <h2 class="pageTitle">All RSOs</h2>
-        <button class="createRSO" onclick="createRSO()">Create RSO</button>
-        <a type="button" onclick="viewRSO()" class="card rsoContainer">
+    <form class="RSOs center">
+        <div class="card rsoContainer">
             <div class="card rsoNameCell bg-secondary">
                 <div class="textContainer">
                     <h5 class="title">Name</h5>
                     <h1 class="rsoName">RSO Name</h1>
-                </div>
-            </div>
-            <div class="card rsoMembersCell bg-secondary">
-                <div class="textContainer">
-                    <h5 class="title">Members</h5>
-                    <p class="rsoMembers">RSO Names</p>
                 </div>
             </div>
             <div class="card rsoDescriptionCell bg-secondary">
@@ -49,12 +41,11 @@
                     <p class="rsoDescription">RSO Description</p>
                 </div>
             </div>
-        </a>
-
-    </div>
+        </div>
+        <button class="joinRSO" onclick="joinRSO()">Join</button>
+    </form>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../js/rsos.js"></script>
-    <script src="../js/utils.js"></script>
     <script src="../js/isLoggedIn.js"></script>
 </body>
 

@@ -45,16 +45,20 @@ app.get('/events', function(req, res) {
     res.sendFile(path.join(__dirname, 'frontend/pages/events.html'));
 });
 
-app.get('/events/:id', function (req, res) {
-	res.sendFile(path.join(__dirname, 'frontend/pages/event.html'));
+app.get('/events/:id', function(req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/pages/event.html'));
 });
 
 app.get('/rsos', function(req, res) {
-	res.sendFile(path.join(__dirname, 'frontend/pages/rsos.html'));
+    res.sendFile(path.join(__dirname, 'frontend/pages/rsos.html'));
 });
 
 app.get('/createRSO', function(req, res) {
     res.sendFile(path.join(__dirname, 'frontend/pages/createRSO.html'));
+});
+
+app.get('/viewRSO', function(req, res) {
+    res.sendFile(path.join(__dirname, 'frontend/pages/viewRSO.html'));
 });
 
 app.use(bodyParser.json());

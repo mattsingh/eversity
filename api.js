@@ -3,6 +3,7 @@ const {
 	decodeAccessToken,
 	authenticateToken,
 } = require('./jwt');
+const axios = require('axios');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -307,5 +308,18 @@ exports.setApp = function (app, db) {
 				comments: comments.rows,
 			});
 		}
+	});
+
+	// Locate
+	app.get('/locate', authenticateToken, async (req, res) => {
+		const { lat, lon } = req.query;
+
+		// Check if all fields are filled
+		if (!lat || !lon) {
+			return res.status(400).json({ message: 'All fields are required' });
+		}
+
+		const result = await axios.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat},${lon}&key=${process.env.GEOCODING_API_KEY}`);
+		res.status(200).json(result.data.results[0].formatted);
 	});
 };

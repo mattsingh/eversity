@@ -11,19 +11,22 @@ const createEventPage = function () {
 	// On that page, probably do some check here to make sure users can only create an event if their userId matches any rso's admin_id and the rso has been approved
 };
 
+// Scrapping this - sorry :(
 // Load the current date
-const loadDate = function () {
-	// Select date element
-	const date = document.getElementById('date');
+// const loadDate = function () {
+// 	// Select date element
+// 	const date = document.getElementById('date');
 
-	date.innerHTML = today.toDateString();
-};
+// 	date.innerHTML = today.toDateString();
+// };
 
 const setUpcomingEvents = function () {
 	events.forEach((event) => {
 		let eventDate = new Date(event.date);
 		if (eventDate > today) upcomingEvents.push(event);
 	});
+	// Reverse array
+	upcomingEvents.reverse();
 	console.log('Upcoming Events');
 	console.log(upcomingEvents);
 };
@@ -54,10 +57,9 @@ const loadEvents = async function () {
 		if (event.approved == true) {
 			// Get location
 			const loc = await getLocationString(event.location);
-            console.log(loc);
 
 			htmlString += `
-            <a class="card eventCell bg-secondary">
+            <a class="card eventCell bg-secondary" onclick="location.pathname = ${'\'/events/\' + ' + event.id}" type="button" >
                 <div class="textContainer">
                     <h1 class="title">${event.name}</h1>
                     <h5 class="time">${new Date(event.date).toDateString()}</h5>
@@ -117,5 +119,5 @@ document.addEventListener('DOMContentLoaded', async function () {
 	await getEvents();
 	setUpcomingEvents();
 	loadEvents();
-	loadDate();
+	// loadDate();
 });

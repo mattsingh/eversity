@@ -45,7 +45,8 @@ const loadEvents = function() {
 
     let htmlString = '';
     upcomingEvents.forEach((event) => {
-        htmlString += `
+        if (event.approved == true) {
+            htmlString += `
             <div class="card eventCell bg-secondary">
                 <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
                 <h3 class="card-title">${event.name}</h6>
@@ -53,20 +54,24 @@ const loadEvents = function() {
                 <p class="eventCellParagraph">${event.description}</p>
             </div>
         `;
+        }
     });
 
     upcomingEventsContainer.innerHTML = htmlString;
 
     htmlString = '';
     recentEvents.forEach((event) => {
-        htmlString += `
-        <div class="card eventCell bg-secondary">
-            <img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
-            <h3 class="card-title">${event.name}</h6>
-            <p class="card-text">${new Date(event.date).toDateString()}</p>
-            <p class="eventCellParagraph">${event.description}</p>
-        </div>
-        `;
+        if (event.approved == true) {
+            htmlString += `
+			<div class="card eventCell bg-secondary">
+				<img class="eventCellPicture" src="https://media.discordapp.net/attachments/958034245551534132/962500224394334249/unknown.png" alt="Event picture" />
+				<h3 class="card-title">${event.name}</h6>
+				<p class="card-text">${new Date(event.date).toDateString()}</p>
+				<p class="eventCellParagraph">${event.description}</p>
+			</div>
+			`;
+        }
+
     });
 
     recentEventsContainer.innerHTML = htmlString;
@@ -100,7 +105,7 @@ const loadPendingEvents = async function(auth_level) {
     const pendingEventsLocation = document.getElementById('pendingEvents');
 
     if (auth_level == 2) {
-        alert("Welcome, Super Admin");
+        console.log("Welcome, Super Admin");
         // Load pending events container
         let htmlString = `<h1>Pending Events</h1>
         <div id="pendingEventsContainer" class="card">`;
@@ -112,8 +117,8 @@ const loadPendingEvents = async function(auth_level) {
 			<h3 class="card-title">${event.name}</h6>
 			<h5 class="time">${new Date(event.date).toDateString()}</h5>
 				<p class="eventCellParagraph">${event.description}</p>
-				<button class="approveRSO" onclick="approveRSO()">Approve</button>
-				<button class="denyRSO" onclick="denyRSO()">Deny</button>
+				<button class="approveRSO" value="${event.id}" onclick="approveEvent(this.value)">Approve</button>
+				<button class="denyRSO" value="${event.id}" onclick="denyEvent(this.value)">Deny</button>
 		</div>
 		`;
             }
@@ -124,8 +129,57 @@ const loadPendingEvents = async function(auth_level) {
         pendingEventsLocation.innerHTML = htmlString;
         console.log('Rendered Pending Events to DOM for Super Admin');
     }
-
 }
+
+
+const approveEvent = function(eventId) {
+    // Load JWT from local storage
+    const token = localStorage.getItem('token');
+
+    //console.log("Approving ID = " + eventId);
+    axios
+        .post(origin + '/event/approve', {
+            eventToApproveID: eventId,
+        }, {
+            headers: { Authorization: 'Bearer ' + token },
+        })
+        .then(function(res) {
+            console.log(res);
+            if (res.status === 200) {
+                // Redirect to dashboard (basically reloading)
+                window.location.href = origin + '/dashboard';
+            }
+        })
+        .catch(function(err) {
+            console.log(err);
+            alert(err.response.data.message);
+        });
+};
+
+
+const denyEvent = function(eventId) {
+    // Load JWT from local storage
+    const token = localStorage.getItem('token');
+
+    //console.log("ID = " + eventId);
+    axios
+        .post(origin + '/event/deny', {
+            eventToDeleteID: eventId,
+        }, {
+            headers: { Authorization: 'Bearer ' + token },
+        })
+        .then(function(res) {
+            console.log(res);
+            if (res.status === 200) {
+                // Redirect to dashboard (basically reloading)
+                window.location.href = origin + '/dashboard';
+            }
+        })
+        .catch(function(err) {
+            console.log(err);
+            alert(err.response.data.message);
+        });
+};
 
 // On page load get events
 document.addEventListener('DOMContentLoaded', async function() {

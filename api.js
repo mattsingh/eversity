@@ -196,6 +196,33 @@ exports.setApp = function(app, db) {
         res.status(200).json(result.rows);
     });
 
+    // Approve an Event
+    app.post('/event/approve', authenticateToken, async(req, res) => {
+
+        const { eventToApproveID } = req.body;
+        //console.log(eventToApproveID);
+
+        // Update Event approved column with matching id
+        let result = await db.query('UPDATE events SET approved = $1 WHERE id = $2', [true, eventToApproveID]);
+
+        console.log("Successfully approved event with id: " + eventToApproveID);
+
+        res.status(200).json(result.rows);
+    });
+
+    // Delete an Event
+    app.post('/event/deny', authenticateToken, async(req, res) => {
+
+        const { eventToDeleteID } = req.body;
+
+        // Delete Event with matching id
+        let result = await db.query('DELETE FROM events WHERE id = $1', [eventToDeleteID]);
+
+        console.log("Successfully denied/removed event with id: " + req.body);
+
+        res.status(200).json(result.rows);
+    });
+
     // Create RSO
     app.post('/rso/create', authenticateToken, async(req, res) => {
         console.log(req.body);
@@ -291,7 +318,7 @@ exports.setApp = function(app, db) {
                 'SELECT comments.id, comments.text, comments.rating, comments.created_at,users.name FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.event_id = $1', [eventId]
             );
             if (comments.rows.length === 0) {
-                return res.status(400).json({ message: 'No comments' });
+                return res.status(200).json({ message: 'No comments' });
             }
 
             // Get rating average

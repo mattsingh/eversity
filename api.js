@@ -140,7 +140,7 @@ exports.setApp = function(app, db) {
 
         // Create event
         let result = await db.query(
-            'INSERT INTO events (name, date, contact_phone, contact_email, rso_id, location, description, type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [
+            'INSERT INTO events (name, date, contact_phone, contact_email, rso_id, location, description, type, creator_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)', [
                 name,
                 date,
                 contactPhone,
@@ -149,6 +149,7 @@ exports.setApp = function(app, db) {
                 '(' + location.lat + ', ' + location.lng + ')',
                 description,
                 type,
+                req.user.user_id,
             ]
         );
 

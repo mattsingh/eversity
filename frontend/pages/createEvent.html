@@ -38,8 +38,32 @@
             </div>
             <div class="eventTimeCell">
                 <div class="textContainer">
-                    <h2 class="title">Time</h2>
-                    <input type="time" class="eventTime" id="eventTime" placeholder="Event Time" required>
+                    <h2 class="title">Date & Time</h2>
+                    <input type="date" class="eventTime m-1" id="eventDate" placeholder="Event Date" required>
+                    <input type="time" class="eventTime m-1" id="eventTime" placeholder="Event Time" required>
+                </div>
+            </div>
+            <!-- Event type -->
+            <div class="eventTimeCell">
+                <div class="textContainer">
+                    <h2 class="title">Event Type</h2>
+                    <select class="eventTime" id="eventType" required>
+                        <option value="0">Public</option>
+                        <option value="1">Private</option>
+                        <option value="2">RSO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="eventNameCell">
+                <div class="textContainer">
+                    <h2 class="title">Contact Email</h2>
+                    <input class="eventName" id="eventContactEmail" placeholder="Contact Email" required>
+                </div>
+            </div>
+            <div class="eventNameCell">
+                <div class="textContainer">
+                    <h2 class="title">Contact Phone</h2>
+                    <input class="eventName" id="eventContactPhone" placeholder="Contact Phone" required>
                 </div>
             </div>
             <div class="eventLocationCell">
@@ -55,10 +79,11 @@
                 </div>
             </div>
         </div>
-        <button class="submitEvent">Submit</button>
+        <button id="submitButton" type="button" class="submitEvent">Submit</button>
     </form>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../js/createEvent.js"></script>
+    <script src="../js/utils.js"></script>
     <script src="../js/isLoggedIn.js"></script>
 </body>
 

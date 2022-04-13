@@ -291,7 +291,7 @@ exports.setApp = function(app, db) {
                 'SELECT comments.id, comments.text, comments.rating, comments.created_at,users.name FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.event_id = $1', [eventId]
             );
             if (comments.rows.length === 0) {
-                return res.status(400).json({ message: 'No comments' });
+                return res.status(200).json({ message: 'No comments' });
             }
 
             // Get rating average

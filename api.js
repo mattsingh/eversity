@@ -383,6 +383,22 @@ exports.setApp = function(app, db) {
         res.status(200).json({ isAdminForThisRSO });
     });
 
+    // Check if is the admin for an RSO
+    app.get('/rso/isAdminForAnyRSO', authenticateToken, async(req, res) => {
+
+        // Check member_of table
+        const result = await db.query(
+            'SELECT * FROM rsos WHERE admin_id = $1', [req.user.user_id]
+        );
+        //console.log(result.rows.length);
+        let isAdminForAnyRSO = false;
+        if (result.rows.length != 0) {
+            isAdminForAnyRSO = true;
+        }
+
+        res.status(200).json({ isAdminForAnyRSO });
+    });
+
     // Get RSOs
     app.get('/rso/get', authenticateToken, async(req, res) => {
         const id = req.query.id;

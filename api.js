@@ -5,6 +5,7 @@ const {
 } = require('./jwt');
 const axios = require('axios');
 const bcrypt = require('bcrypt');
+const { user } = require('pg/lib/defaults');
 const saltRounds = 10;
 
 exports.setApp = function(app, db) {
@@ -457,7 +458,7 @@ exports.setApp = function(app, db) {
         // Return comments for event with id
         if (eventId) {
             const comments = await db.query(
-                'SELECT comments.id, comments.text, comments.rating, comments.created_at,users.name FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.event_id = $1', [eventId]
+                'SELECT comments.id, comments.text, comments.rating, comments.created_at, users.name, users.id as user_id FROM comments INNER JOIN users ON comments.user_id = users.id WHERE comments.event_id = $1', [eventId]
             );
             if (comments.rows.length === 0) {
                 return res.status(200).json({ message: 'No comments' });
@@ -473,6 +474,37 @@ exports.setApp = function(app, db) {
                 comments: comments.rows,
             });
         }
+    });
+
+    // Delete comment
+    app.delete('/comments/delete/:id', authenticateToken, async(req, res) => {
+        const commentId = req.params.id;
+
+        // Check if all fields are filled
+        if (!commentId) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        // If user is an admin or the comment author, delete comment
+        if (req.user.auth_level < 1) {
+            let result = await db.query(
+                'SELECT * FROM comments WHERE id = $1 AND user_id = $2', [commentId, req.user.user_id]
+            );
+            if (result.rows.length === 0) {
+                return res.status(400).json({ message: 'You are not authorized to delete this comment' });
+            }
+        }
+
+        // Delete comment
+        result = await db.query(
+            'DELETE FROM comments WHERE id = $1', [commentId]
+        );
+        if (result.rowCount === 0) {
+            return res
+                .status(400)
+                .json({ message: 'Comment could not be deleted' });
+        }
+        res.status(200).json({ message: 'Comment deleted' });
     });
 
     // Locate

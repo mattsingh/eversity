@@ -292,7 +292,7 @@ exports.setApp = function(app, db) {
             'SELECT * FROM member_of WHERE rso_id = $1', [rsoId]
         );
 
-        if (allMembers.rows.length >= 2) //REMINDER to change this to 5
+        if (allMembers.rows.length >= 5) //REMINDER to change this to 5
         {
 
             // Change the rso approved column to true
@@ -329,7 +329,7 @@ exports.setApp = function(app, db) {
             'SELECT * FROM member_of WHERE rso_id = $1', [rsoId]
         );
 
-        if (allMembers.rows.length < 2) //REMINDER to change this to 5
+        if (allMembers.rows.length < 5) //REMINDER to change this to 5
         {
             // Change the rso approved column to true
             let result = await db.query('UPDATE rsos SET approved = $1 WHERE id = $2', [false, rsoId]);

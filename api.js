@@ -298,17 +298,18 @@ exports.setApp = function(app, db) {
             // Change the rso approved column to true
             let result = await db.query('UPDATE rsos SET approved = $1 WHERE id = $2', [true, rsoId]);
 
-            /* Need authorization to change these
+            /* Need authorization to change these*/
             // Get the admin_id of the rso with the rsoId
             let tempRSO = await db.query(
-                'SELECT * FROM rsos WHERE rso_id = $1', [rsoId]
+                'SELECT * FROM rsos WHERE id = $1', [rsoId]
             );
 
-            let adminID = tempRSO[0].admin_id;
+            let adminID = tempRSO.rows[0].admin_id;
 
             // Change the auth_level of the user with admin_id to 1
             let userResult = await db.query('UPDATE users SET auth_level = $1 WHERE id = $2', [1, adminID]);
-            */
+
+
         }
 
         res.status(200).json({ message: 'Successfully joined an RSO' });
@@ -334,17 +335,17 @@ exports.setApp = function(app, db) {
             // Change the rso approved column to true
             let result = await db.query('UPDATE rsos SET approved = $1 WHERE id = $2', [false, rsoId]);
 
-            /* Need authorization to change these
+            /* Need authorization to change these */
             // Get the admin_id of the rso with the rsoId
             let tempRSO = await db.query(
-                'SELECT * FROM rsos WHERE rso_id = $1', [rsoId]
+                'SELECT * FROM rsos WHERE id = $1', [rsoId]
             );
 
-            let adminID = tempRSO[0].admin_id;
+            let adminID = tempRSO.rows[0].admin_id;
 
             // Change the auth_level of the user with admin_id to 0
             let userResult = await db.query('UPDATE users SET auth_level = $1 WHERE id = $2', [0, adminID]);
-            */
+
         }
 
         res.status(200).json({ message: 'Successfully left an RSO' });
@@ -388,7 +389,7 @@ exports.setApp = function(app, db) {
 
         // Check member_of table
         const result = await db.query(
-            'SELECT * FROM rsos WHERE admin_id = $1', [req.user.user_id]
+            'SELECT * FROM rsos WHERE admin_id = $1 AND approved = $2', [req.user.user_id, true]
         );
         //console.log(result.rows.length);
         let isAdminForAnyRSO = false;

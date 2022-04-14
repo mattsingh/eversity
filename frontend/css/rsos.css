@@ -24,13 +24,44 @@
     transition: 0.2s;
 }
 
-.rsoContainer {
-    text-decoration: none;
+.joinRSO {
+    position: relative;
+    background-color: #89DD00;
+    color: white;
+    border: none;
+    text-align: center;
+    align-items: center;
+    border-radius: 20px;
+    margin-left: 49%;
+    margin-top: -50px;
+    box-shadow: 0px 2px 2px 2px #4b523f60;
 }
 
-.rsoContainer:hover {
-    box-shadow: 0px 2px 2px 2px #4b523f60;
+.joinRSO:hover {
+    box-shadow: 0px 2px 2px 2px #4b523f00;
     transition: 0.2s;
+}
+
+.leaveRSO {
+    position: relative;
+    background-color: #DD0000;
+    color: white;
+    border: none;
+    text-align: center;
+    align-items: center;
+    border-radius: 20px;
+    margin-left: 49%;
+    margin-top: -50px;
+    box-shadow: 0px 2px 2px 2px #4b523f60;
+}
+
+.leaveRSO:hover {
+    box-shadow: 0px 2px 2px 2px #4b523f00;
+    transition: 0.2s;
+}
+
+.rsoContainer {
+    text-decoration: none;
 }
 
 .RSOs .card {

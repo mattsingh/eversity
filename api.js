@@ -286,6 +286,31 @@ exports.setApp = function(app, db) {
                 .json({ message: 'member_of entry could not be created' });
         }
 
+        // Now we check the amount of rows of members with this rsoID
+
+        let allMembers = await db.query(
+            'SELECT * FROM member_of WHERE rso_id = $1', [rsoId]
+        );
+
+        if (allMembers.rows.length >= 2) //REMINDER to change this to 5
+        {
+
+            // Change the rso approved column to true
+            let result = await db.query('UPDATE rsos SET approved = $1 WHERE id = $2', [true, rsoId]);
+
+            /* Need authorization to change these
+            // Get the admin_id of the rso with the rsoId
+            let tempRSO = await db.query(
+                'SELECT * FROM rsos WHERE rso_id = $1', [rsoId]
+            );
+
+            let adminID = tempRSO[0].admin_id;
+
+            // Change the auth_level of the user with admin_id to 1
+            let userResult = await db.query('UPDATE users SET auth_level = $1 WHERE id = $2', [1, adminID]);
+            */
+        }
+
         res.status(200).json({ message: 'Successfully joined an RSO' });
     });
 
@@ -295,27 +320,67 @@ exports.setApp = function(app, db) {
 
         // Add to member_of table
         let memberResult = await db.query(
-            'DELETE FROM member_of (user_id, rso_id) VALUES ($1, $2)', [req.user.user_id, rsoId]
+            'DELETE FROM member_of WHERE user_id = $1 AND rso_id = $2', [req.user.user_id, rsoId]
         );
+
+        // Now we check the amount of rows of members with this rsoID
+
+        let allMembers = await db.query(
+            'SELECT * FROM member_of WHERE rso_id = $1', [rsoId]
+        );
+
+        if (allMembers.rows.length < 2) //REMINDER to change this to 5
+        {
+            // Change the rso approved column to true
+            let result = await db.query('UPDATE rsos SET approved = $1 WHERE id = $2', [false, rsoId]);
+
+            /* Need authorization to change these
+            // Get the admin_id of the rso with the rsoId
+            let tempRSO = await db.query(
+                'SELECT * FROM rsos WHERE rso_id = $1', [rsoId]
+            );
+
+            let adminID = tempRSO[0].admin_id;
+
+            // Change the auth_level of the user with admin_id to 0
+            let userResult = await db.query('UPDATE users SET auth_level = $1 WHERE id = $2', [0, adminID]);
+            */
+        }
 
         res.status(200).json({ message: 'Successfully left an RSO' });
     });
 
     // Check if in an RSO
     app.get('/rso/isMember', authenticateToken, async(req, res) => {
-        const { rsoId } = req.body;
-
+        const rsoId = req.query.rsoId;
         // Check member_of table
         const result = await db.query(
             'SELECT * FROM member_of WHERE user_id = $1 AND rso_id = $2', [req.user.user_id, rsoId]
         );
-
-        let isMember = false
+        //console.log(result.rows.length);
+        let isMember = false;
         if (result.rows.length != 0) {
             isMember = true;
         }
 
         res.status(200).json({ isMember });
+    });
+
+    // Check if is the admin for an RSO
+    app.get('/rso/isAdminForThisRSO', authenticateToken, async(req, res) => {
+        const rsoId = req.query.rsoId;
+
+        // Check member_of table
+        const result = await db.query(
+            'SELECT * FROM rsos WHERE id = $1 AND admin_id = $2', [rsoId, req.user.user_id]
+        );
+        //console.log(result.rows.length);
+        let isAdminForThisRSO = false;
+        if (result.rows.length != 0) {
+            isAdminForThisRSO = true;
+        }
+
+        res.status(200).json({ isAdminForThisRSO });
     });
 
     // Get RSOs

@@ -225,7 +225,6 @@ exports.setApp = function(app, db) {
 
     // Create RSO
     app.post('/rso/create', authenticateToken, async(req, res) => {
-        console.log(req.body);
         const { name, description } = req.body;
 
         // Check if all fields are filled
@@ -246,16 +245,77 @@ exports.setApp = function(app, db) {
             'INSERT INTO rsos (name, description, university_id, admin_id) VALUES ($1, $2, $3, $4)', [name, description, req.user.university_id, req.user.user_id]
         );
 
-        // Create Member status
-        //let result2 = await db.query(
-        //    'INSERT INTO member_of (user_id, rso_id) VALUES ($1, $2)', [req.user.user_id, ]
-        //);
         if (result.rowCount === 0) {
             return res
                 .status(400)
                 .json({ message: 'RSO could not be created' });
+        } else {
+            const newRSO = await db.query('SELECT * FROM rsos WHERE name = $1 AND description = $2', [
+                name, description,
+            ]);
+
+            //console.log(newRSO.rows[0].id);
+
+            // Add to member_of table
+            let memberResult = await db.query(
+                'INSERT INTO member_of (user_id, rso_id) VALUES ($1, $2)', [req.user.user_id, newRSO.rows[0].id]
+            );
+
+            if (memberResult.rowCount === 0) {
+                return res
+                    .status(400)
+                    .json({ message: 'member_of entry could not be created' });
+            }
+
         }
         res.status(200).json({ message: 'RSO created' });
+    });
+
+    // Join RSO
+    app.post('/rso/join', authenticateToken, async(req, res) => {
+        const { rsoId } = req.body;
+
+        // Add to member_of table
+        let memberResult = await db.query(
+            'INSERT INTO member_of (user_id, rso_id) VALUES ($1, $2)', [req.user.user_id, rsoId]
+        );
+
+        if (memberResult.rowCount === 0) {
+            return res
+                .status(400)
+                .json({ message: 'member_of entry could not be created' });
+        }
+
+        res.status(200).json({ message: 'Successfully joined an RSO' });
+    });
+
+    // Leave RSO
+    app.post('/rso/leave', authenticateToken, async(req, res) => {
+        const { rsoId } = req.body;
+
+        // Add to member_of table
+        let memberResult = await db.query(
+            'DELETE FROM member_of (user_id, rso_id) VALUES ($1, $2)', [req.user.user_id, rsoId]
+        );
+
+        res.status(200).json({ message: 'Successfully left an RSO' });
+    });
+
+    // Check if in an RSO
+    app.get('/rso/isMember', authenticateToken, async(req, res) => {
+        const { rsoId } = req.body;
+
+        // Check member_of table
+        const result = await db.query(
+            'SELECT * FROM member_of WHERE user_id = $1 AND rso_id = $2', [req.user.user_id, rsoId]
+        );
+
+        let isMember = false
+        if (result.rows.length != 0) {
+            isMember = true;
+        }
+
+        res.status(200).json({ isMember });
     });
 
     // Get RSOs

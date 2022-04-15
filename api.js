@@ -394,7 +394,7 @@ exports.setApp = function(app, db) {
         );
         //console.log(result.rows.length);
         let isAdminForAnyRSO = false;
-        if (result.rows.length != 0) {
+        if (result.rows.length != 0 || req.user.auth_level >= 1) {
             isAdminForAnyRSO = true;
         }
 

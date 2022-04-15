@@ -8,5 +8,24 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.7.3"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "eversity",
+  "version": "1.0.0",
+  "main": "api.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattsingh/eversity.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattsingh/eversity/issues"
+  },
+  "homepage": "https://github.com/mattsingh/eversity#readme",
+  "description": ""
 }

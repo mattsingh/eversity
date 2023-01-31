@@ -14,4 +14,4 @@ Since this web application is made ideally for the University domain styled emai
 We use a local [.env](https://www.npmjs.com/package/dotenv) file to access our PostgreSQL database, to hold the signature of our [JSON Web Token](https://jwt.io/), and to access our API Key for accessing [Open Cage Data](https://opencagedata.com/)'s Geocoding service. Our web application and database was initially hosted on [Heroku](https://dashboard.heroku.com/apps), but is now hosted on [Glitch](https://glitch.com/) and accesses our database that is hosted by [ElephantSQL](https://www.elephantsql.com/).
 
 ## Authors
-[Exdol Davy](https://www.linkedin.com/in/exdol-davy/) and [Matthew Sing](https://www.linkedin.com/in/matthewnsingh/)
+[Exdol Davy](https://www.linkedin.com/in/exdol-davy/) and [Matthew Singh](https://www.linkedin.com/in/matthewnsingh/)

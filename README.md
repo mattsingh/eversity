@@ -5,6 +5,6 @@ The Eversity Web Application is a web-based implementation of a given university
 university affiliated names. When logged in, users are sent to the dashboard page, where they can see recent events, upcoming events, and super admins are able to see pending events in addition to the other displays. Our web application has a useful navigation bar at the top of the user’s screen that gives them the option to view the dashboard page, event listing page, RSO listing page, and the option to logout if they so choose.
 
 ## Live Site
-https://eversity.glitch.me
+[https://eversity.glitch.me](https://eversity.glitch.me)
 
 Since this web application is made ideally for the University domain styled emails, we've created a mock university for all Gmail users. So if you'd like to test this web app, I'd recommend registering with your Gmail account to check out what we have!

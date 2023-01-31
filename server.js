@@ -13,7 +13,7 @@ const db = new Client({
 });
 
 db.connect();
-console.log('Connected to Heroku Postgres Database');
+console.log('Connected to ElephantSQL PostgreSQL Database');
 
 const app = express();
 const port = process.env.PORT || 8080;

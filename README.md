@@ -6,4 +6,5 @@ university affiliated names. When logged in, users are sent to the dashboard pag
 
 ## Live Site
 https://eversity.glitch.me
+
 Since this web application is made ideally for the University domain styled emails, we've created a mock university for all Gmail users. So if you'd like to test this web app, I'd recommend registering with your Gmail account to check out what we have!

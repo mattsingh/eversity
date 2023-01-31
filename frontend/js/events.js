@@ -159,6 +159,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     loadButton();
     await getEvents();
     setUpcomingEvents();
-    loadEvents();
+    loadEvents().then(() => {
+            console.log('Your event feed has been successfully loaded')
+        })
+        .catch(e => console.log('loadEvents', e));
     // loadDate();
 });

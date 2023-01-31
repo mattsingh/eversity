@@ -11,7 +11,7 @@ university affiliated names. When logged in, users are sent to the dashboard pag
 Since this web application is made ideally for the University domain styled emails, we've created a mock university for all Gmail users. So if you'd like to test this web app, I'd recommend registering with your Gmail account to check out what we have!
 
 ## Development
-We use a local [.env](https://www.npmjs.com/package/dotenv) file to access our PostgreSQL database (hosted by [ElephantSQL](https://www.elephantsql.com/)), to hold the signature of our [JSON Web Token](https://jwt.io/), and to access our API Key for accessing [Open Cage Data](https://opencagedata.com/)'s Geocoding service.
+We use a local [.env](https://www.npmjs.com/package/dotenv) file to access our PostgreSQL database, to hold the signature of our [JSON Web Token](https://jwt.io/), and to access our API Key for accessing [Open Cage Data](https://opencagedata.com/)'s Geocoding service. Our web application and database was initially hosted on [Heroku](https://dashboard.heroku.com/apps), but is now hosted on [Glitch](https://glitch.com/) and accesses our database that is hosted by [ElephantSQL](https://www.elephantsql.com/).
 
 ## Authors
 [Exdol Davy](https://www.linkedin.com/in/exdol-davy/) and [Matthew Sing](https://www.linkedin.com/in/matthewnsingh/)
